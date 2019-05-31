@@ -1,0 +1,10 @@
+SberBankServer Log: Initializing SberBankServer
+SberBankServer Log: Start SberBankServer
+SberBankServer Log: Validating card 12345678
+SberBankServer Log: Checking card 12345678 failed attempts
+SberBankServer Log: Checking card 12345678 pin
+SberBankServer Log: Checking card 12345678 balance
+SberBankServer Log: Checking card 12345678 balance
+SberBankServer Log: Querying created payments for card 12345678
+SberBankServer Log: Checking card 12345678 balance
+SberBankServer Log: Performing deposit for card 12345678

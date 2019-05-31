@@ -1,0 +1,69 @@
+{
+  "bankServices": [
+    {
+      "bankName": "SberBank",
+      "serviceName": "SberBankServer",
+      "servicePort": 1099,
+      "serviceHostname": "localhost",
+      "serviceRootPath": "rmi://localhost/",
+      "serviceDBPath": "db/sberbank.db",
+      "mode": "test"
+    },
+    {
+      "bankName": "VTB",
+      "serviceName": "VTBServer",
+      "servicePort": 1099,
+      "serviceHostname": "localhost",
+      "serviceRootPath": "rmi://localhost/",
+      "serviceDBPath": "db/vtbbank.db",
+      "mode": "test"
+    },
+    {
+      "bankName": "ALPHA",
+      "serviceName": "ALPHAServer",
+      "servicePort": 1099,
+      "serviceHostname": "localhost",
+      "serviceRootPath": "rmi://localhost/",
+      "serviceDBPath": "db/alpha.db",
+      "mode": "test"
+    }
+  ],
+  "ATMs": [
+    {
+      "atmName": "ATM-SBER-1234",
+      "bankName": "SberBank",
+      "banknoteMap": {
+        "100": 100,
+        "200": 15,
+        "500": 25,
+        "1000": 15,
+        "5000": 10
+      },
+      "mode": "test"
+    },
+    {
+      "atmName": "ATM-VTB-1234",
+      "bankName": "VTB",
+      "banknoteMap": {
+        "100": 100,
+        "200": 15,
+        "500": 25,
+        "1000": 15,
+        "5000": 10
+      },
+      "mode": "test"
+    },
+    {
+      "atmName": "ATM-ALPHA-1234",
+      "bankName": "ALPHA",
+      "banknoteMap": {
+        "100": 100,
+        "200": 15,
+        "500": 25,
+        "1000": 15,
+        "5000": 10
+      },
+      "mode": "test"
+    }
+  ]
+}

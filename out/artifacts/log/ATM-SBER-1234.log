@@ -1,0 +1,8 @@
+ATM-SBER-1234 Log: State switched from Idle to CardCheck
+ATM-SBER-1234 Log: State switched from CardCheck to CodeEntry
+ATM-SBER-1234 Log: State switched from CodeEntry to OperationChoice
+ATM-SBER-1234 Log: State switched from OperationChoice to Deposit
+ATM-SBER-1234 Log: State switched from Deposit to OperationChoice
+ATM-SBER-1234 Log: State switched from OperationChoice to BalanceCheck
+ATM-SBER-1234 Log: {"100":105,"200":15,"5000":10,"500":25,"1000":15}
+ATM-SBER-1234 Log: State switched from BalanceCheck to OperationChoice
