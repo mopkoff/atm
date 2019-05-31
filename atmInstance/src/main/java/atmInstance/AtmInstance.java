@@ -4,6 +4,7 @@ import utilities.*;
 import model.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -49,7 +50,10 @@ public class AtmInstance {
     private ATMState currentState = ATMState.Idle;
     private StreamDispatcher streamDispatcher;
     private Card currentCard;
+    private String mode;
 
+    InputStreamReader isr;
+    BufferedReader br;
 
     public static AtmInstance getAtmInstance(String atmName, String bankName, BanknoteMap initBanknoteMap, String bankServiceHostname, String bankServicePath, String mode) {
 
@@ -73,7 +77,7 @@ public class AtmInstance {
         this.banknoteMap = initBanknoteMap;
         this.dispencer = new Dispencer();
         this.billAcceptor = new BillAcceptor();
-
+        this.mode = mode;
         switch (mode) {
             case "debug":
                 this.streamDispatcher = new StreamDispatcher(
@@ -108,6 +112,10 @@ public class AtmInstance {
                 break;
 
         }
+
+        isr = isr = new InputStreamReader(streamDispatcher.getInStream(),
+                StandardCharsets.UTF_8);
+        br = new BufferedReader(isr);
 
         streamDispatcher.overrideSystemAll();
         System.setProperty(RMI_HOSTNAME, bankServiceHostname);
@@ -163,25 +171,55 @@ public class AtmInstance {
     }
 
     private String inputString(String str) {
+
         printATM(MessageType.InputRequest, str);
         Scanner s = new Scanner(this.streamDispatcher.getInStream());
-        String input = s.next();
-        printATM(MessageType.Info, "RECIEVED: " + input + "\n");
+        String input;
+        if (mode.equals("test")) {
+            try {
+                input = br.readLine();
+            } catch (IOException e) {
+                input = s.nextLine();
+                e.printStackTrace();
+            }
+            printATM(MessageType.Info, "RECEIVED:" + input);
+        } else
+            input = s.nextLine();
         return input;
     }
 
     private int inputUnsignedInt(String str) {
         printATM(MessageType.InputRequest, str);
         Scanner s = new Scanner(this.streamDispatcher.getInStream());
-        String input = s.next();
-        printATM(MessageType.Info, "RECIEVED: " + input + "\n");
+        String input;
+        if (mode.equals("test")) {
+            try {
+                input = br.readLine();
+            } catch (IOException e) {
+                input = s.nextLine();
+                e.printStackTrace();
+            }
+            printATM(MessageType.Info, "RECEIVED:" + input);
+        } else
+            input = s.nextLine();
         return Integer.parseUnsignedInt(input);
     }
 
     private double inputPositiveDouble(String str) {
         printATM(MessageType.InputRequest, str);
         Scanner s = new Scanner(this.streamDispatcher.getInStream());
-        String input = s.next();
+        String input;
+        if (mode.equals("test")) {
+            try {
+                input = br.readLine();
+            } catch (IOException e) {
+                input = s.nextLine();
+                e.printStackTrace();
+            }
+            printATM(MessageType.Info, "RECEIVED:" + input);
+        } else
+            input = s.nextLine();
+
         double result = Double.parseDouble(input);
         if (result <= 0)
             throw new IllegalArgumentException("Value should be positive");
@@ -478,8 +516,7 @@ public class AtmInstance {
 
             } catch (RemoteException | NumberFormatException e) {
                 printATM(MessageType.Error, e.getMessage());
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 setState(ATMState.Error);
             }
